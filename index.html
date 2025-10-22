@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sei Kein Clown - Finde Deinen Weg | weed.de</title>
+    <meta name="description" content="Sei kein Clown. Finde deinen Weg zur legalen medizinischen Cannabis-Behandlung mit weed.de. Professionelle Beratung, sichere Medikation." />
+    <meta name="keywords" content="medizinisches Cannabis, weed.de, Cannabis Medikation, Sei kein Clown, Find Your Way" />
+    <meta property="og:title" content="Sei Kein Clown - Finde Deinen Weg | weed.de" />
+    <meta property="og:description" content="Professionelle medizinische Cannabis-Behandlung. Sei kein Clown - finde deinen Weg mit weed.de." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <!-- Age Verification System - CRITICAL: Load before React -->
+    <script>
+      console.log('🎯 Age Verification System - Starting in HEAD...');
+      
+      // Global state
+      window.ageVerificationSystem = {
+        isVerified: false,
+        popupVisible: false,
+        
+        // Check if already verified
+        checkVerificationStatus: function() {
+          const storedValue = sessionStorage.getItem('age_verified');
+          const verified = storedValue === 'true';
+          this.isVerified = verified;
+          console.log('🔍 Checking verification status...');
+          console.log('📦 Storage value:', storedValue);
+          console.log('✅ Verification status:', verified ? 'VERIFIED' : 'NOT VERIFIED');
+          return verified;
+        },
+        
+        // Show age verification popup
+        showAgeVerificationPopup: function() {
+          if (this.popupVisible) return;
+          
+          console.log('🎭 Showing age verification popup');
+          this.popupVisible = true;
+          
+          // Create popup HTML
+          const overlay = document.createElement('div');
+          overlay.id = 'age-verification-overlay';
+          overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease-out;
+          `;
+          
+          overlay.innerHTML = `
+            <div style="
+              background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+              border-radius: 20px;
+              padding: 40px;
+              max-width: 500px;
+              width: 90%;
+              box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+              border: 1px solid rgba(34, 197, 94, 0.2);
+              animation: slideUp 0.3s ease-out;
+            ">
+              <div style="text-align: center; margin-bottom: 30px;">
+                <img src="./assets/WEED_Logo_Wordmark_White_Lrg.png" alt="weed.de" style="height: 40px; margin-bottom: 20px;">
+                <h2 style="color: white; margin: 0; font-size: 24px; font-weight: 600;">Altersverifikation erforderlich</h2>
+              </div>
+              
+              <div style="margin-bottom: 30px;">
+                <p style="color: #d1d5db; margin: 0; line-height: 1.6; text-align: center;">
+                  Um auf diesen Inhalt zugreifen zu können, müssen Sie bestätigen, dass Sie mindestens 18 Jahre alt sind.
+                </p>
+              </div>
+              
+              <form id="age-verification-form">
+                <div style="margin-bottom: 20px;">
+                  <label style="display: block; color: white; margin-bottom: 8px; font-weight: 500;">E-Mail-Adresse *</label>
+                  <input type="email" name="email" required placeholder="ihre@email.de" style="
+                    width: 100%;
+                    padding: 12px 16px;
+                    border: 2px solid #374151;
+                    border-radius: 12px;
+                    background: #1f2937;
+                    color: white;
+                    font-size: 16px;
+                    box-sizing: border-box;
+                  ">
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                  <label style="display: flex; align-items: center; color: white; cursor: pointer;">
+                    <input type="checkbox" name="ageConfirm" required style="margin-right: 12px; transform: scale(1.2);">
+                    <span>Ich bestätige, dass ich mindestens 18 Jahre alt bin</span>
+                  </label>
+                </div>
+                
+                <div style="margin-bottom: 30px;">
+                  <label style="display: flex; align-items: center; color: white; cursor: pointer;">
+                    <input type="checkbox" name="newsletterOptin" checked style="margin-right: 12px; transform: scale(1.2);">
+                    <span>Ich möchte den weed.de Newsletter erhalten (empfohlen)</span>
+                  </label>
+                </div>
+                
+                <button type="submit" class="verify-btn" style="
+                  width: 100%;
+                  padding: 16px;
+                  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+                  color: white;
+                  border: none;
+                  border-radius: 12px;
+                  font-size: 18px;
+                  font-weight: 600;
+                  cursor: pointer;
+                  transition: all 0.3s ease;
+                ">
+                  Bestätigen & Video ansehen
+                </button>
+              </form>
+              
+              <div style="text-align: center; margin-top: 20px;">
+                <a href="#" style="color: #22c55e; text-decoration: none; font-size: 14px;">Datenschutzerklärung</a>
+              </div>
+            </div>
+          `;
+          
+          document.body.appendChild(overlay);
+          
+          // Add form submission handler
+          const form = document.getElementById('age-verification-form');
+          const self = this;
+          form.addEventListener('submit', function(e) {
+            self.handleFormSubmission(e);
+          });
+          
+          // Add button click handler
+          const submitButton = document.querySelector('.verify-btn');
+          if (submitButton) {
+            submitButton.addEventListener('click', function(e) {
+              e.preventDefault();
+              console.log('🔘 Submit button clicked directly');
+              const form = document.getElementById('age-verification-form');
+              if (form) {
+                const submitEvent = new Event('submit', { bubbles: true, cancelable: true });
+                form.dispatchEvent(submitEvent);
+              }
+            });
+          }
+        },
+        
+        // Handle form submission
+        handleFormSubmission: function(e) {
+          e.preventDefault();
+          console.log('📝 Processing age verification form...');
+          
+          const form = e.target;
+          const formData = new FormData(form);
+          const email = formData.get('email');
+          const ageConfirm = formData.get('ageConfirm');
+          const newsletterOptin = formData.get('newsletterOptin');
+          
+          console.log('📧 Email:', email);
+          console.log('🔞 Age confirmed:', ageConfirm ? 'true' : 'false');
+          console.log('📬 Newsletter opt-in:', newsletterOptin ? 'true' : 'false');
+          
+          if (!email || !ageConfirm) {
+            alert('Bitte füllen Sie alle Pflichtfelder aus.');
+            return;
+          }
+          
+          // Store verification and lead data
+          sessionStorage.setItem('age_verified', 'true');
+          const leadData = {
+            email: email,
+            ageVerified: true,
+            newsletterOptin: !!newsletterOptin,
+            timestamp: new Date().toISOString(),
+            source: 'age_verification_popup'
+          };
+          localStorage.setItem('lead_data', JSON.stringify(leadData));
+          
+          console.log('💾 Lead data captured:', leadData);
+          
+          // Hide popup and proceed with video
+          this.hideAgeVerificationPopup();
+          this.proceedWithVideo();
+        },
+        
+        // Hide popup
+        hideAgeVerificationPopup: function() {
+          console.log('🎭 Hiding age verification popup');
+          const overlay = document.getElementById('age-verification-overlay');
+          if (overlay) {
+            overlay.remove();
+          }
+          this.popupVisible = false;
+        },
+        
+        // Proceed with video playback
+        proceedWithVideo: function() {
+          console.log('🎬 Triggering video playback...');
+          // Find and click the play button
+          const playButtons = document.querySelectorAll('button');
+          for (let btn of playButtons) {
+            if (btn.textContent.includes('Film') || btn.textContent.includes('Ansehen')) {
+              console.log('🎯 Found play button, triggering click');
+              btn.click();
+              break;
+            }
+          }
+        },
+        
+        // Intercept play button clicks - EARLY CAPTURE
+        interceptPlayButtonClicks: function() {
+          console.log('🎯 Setting up EARLY play button interception...');
+          const self = this;
+          
+          // Use capture phase to intercept before React
+          document.addEventListener('click', function(e) {
+            const target = e.target;
+            if (target.tagName === 'BUTTON' && (target.textContent.includes('Film') || target.textContent.includes('Ansehen'))) {
+              console.log('🎯 EARLY Play button clicked!');
+              
+              // Check verification status dynamically
+              if (!self.checkVerificationStatus()) {
+                console.log('❌ User not verified, showing popup');
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                self.showAgeVerificationPopup();
+                return false;
+              } else {
+                console.log('✅ User is verified, allowing video playback');
+              }
+            }
+          }, true); // Use capture phase - CRITICAL!
+        },
+        
+        // Initialize immediately
+        initialize: function() {
+          console.log('🚀 Initializing age verification system EARLY...');
+          this.checkVerificationStatus();
+          this.interceptPlayButtonClicks();
+          console.log('✅ Age verification system ready EARLY!');
+        }
+      };
+      
+      // Start immediately - don't wait for DOM
+      window.ageVerificationSystem.initialize();
+      
+      // Also initialize when DOM is ready as backup
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          window.ageVerificationSystem.initialize();
+        });
+      }
+    </script>
+    
+    <script type="module" crossorigin src="/assets/index-DwgnkVtG.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-C5IAe8GZ.css">
+  </head>
+  <body class="dark">
+    <div id="root"></div>
+  </body>
+</html>
+

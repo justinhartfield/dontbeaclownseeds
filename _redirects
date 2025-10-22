@@ -1,0 +1,19 @@
+# Netlify redirects for SPA routing
+/*    /index.html   200
+
+# SEO-friendly redirects
+/home    /index.html   301
+/start   /index.html   301
+/video   /index.html   301
+/film    /index.html   301
+
+# Age verification specific redirects
+/age-verification    /index.html   200
+/verify             /index.html   200
+
+# Footer page redirects (if needed)
+/about    /about.html    200
+/contact  /contact.html  200
+/privacy  /privacy.html  200
+/terms    /terms.html    200
+
