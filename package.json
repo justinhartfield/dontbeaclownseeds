@@ -1,0 +1,26 @@
+{
+  "name": "dontbeaclownseeds",
+  "version": "1.0.0",
+  "description": "DontBeAClownSeeds.com - Landing page funnel to Official Cannabis Seeds",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Static site - no build required'",
+    "start": "echo 'Static site - serve index.html'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/justinhartfield/dontbeaclownseeds.git"
+  },
+  "keywords": [
+    "cannabis",
+    "seeds",
+    "landing-page",
+    "lead-capture",
+    "static-site"
+  ],
+  "author": "Justin Hartfield",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {}
+}
+
