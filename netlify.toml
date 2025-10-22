@@ -2,9 +2,6 @@
   publish = "."
   command = "true"
 
-[build.environment]
-  NODE_VERSION = "18"
-
 [[redirects]]
   from = "/*"
   to = "/index.html"
